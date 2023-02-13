@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - 우리가 template_name으로 속성 부여</title>
+</head>
+<body>
+    index.html이다!!!!!! 
+    {# {% %} 이게 한줄짜리 주석입니다 #}
+    
+    {% comment %}
+    코드 수정할 때 <h1>  하하하 </h1>
+    여러줄 주석
+    입니다
+    주
+    석
+    이니까 인터프리터는 못 읽겠죠 그래서 html 태그나 css, js 코드도 못읽습니다
+    {% endcomment %}
+
+    {% for post in post_list %}
+    <p>
+    글제목: {{ post.pk }}<br>
+    글이름: {{ post.title }}<br>
+    작성일: {{ post.crated_at }}<br>
+    글내용: {{ post.content }}<br>
+    
+    {% endfor %}
+
+    {% if count > 0 %}
+        Data Count = {{ count }}
+    {% else %}
+        <h1>No Data</h1>
+    {% endif %}
+
+    // 템플릿  필터: 데이터를 우리가 원하는 방식으로 출력
+    {% for p in posts %}
+        # 날짜 포맷 지정
+        {{ p.crated_at | date:"Y-m-d" }} 
+        <p>
+        # 소문자로 변경
+        {{ p.title | lower }}
+        <p>
+        # 특정 글자수만큼만 출력 
+        {{ p.content | truncatechars:5 }}
+        <p>
+        # 특정 단어수만큼만 출력
+        {{ p.content | truncatewords:5 }}
+        <p>
+    {% endfor  %}
+</body>
+</html>
