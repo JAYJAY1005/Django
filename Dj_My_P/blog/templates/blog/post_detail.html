@@ -1,195 +1,109 @@
+{% extends 'blog/base.html' %}
 
-<!DOCTYPE html>
-{% load static %}
-<html lang="ko">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>{{ post.title }} - Blog</title>
-        <!-- Favicon-->
-        <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" 
-        media="screen">
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'blog/css/blog-post.css' %}" rel="stylesheet" media="screen
-        ">
-        <script src="https://kit.fontawesome.com/bb3233be2f.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page content-->
-        <div class="container mt-5">
-            <div class="row">
-                
-                <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        
-                            <!--title-->
-                            <h1 class="mt-4">{{ post.title }}</h1>
-                            <h5 class="text-muted">{{ post.hook_text }}</h5>
-                            
-                            <!--Author-->
-                            <p class="lead">
-                                by
-                                <a href="#">작성자명 쓸 위치(개발예정)</a>
-                            </p>
-                            <hr>
+{% block head_title %}
+    {{ post.title }} - Blog
+{% endblock %}
 
-                            <!-- Date/Time -->
-                            <p>Posted on {{ post.created_at }}</p>
-                            
-                            <hr>
+{% block main_area %}
 
-                        </header>
-                        <!-- Preview image figure-->
-                        {% if post.head_image %}
-                        <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="{{ post.title }} head_image" >
-                        {% else %}
-                            <img calss="img-fluid rounded" src="https://picsum.photos/seed/{{post.id}}/800/200" alt="random_image">
-                        {% endif %}
-                            
-                            <hr>
-                        <!-- Post content-->
-                        <p>{{ post.content }}</p>
-                        
-                        {% if post.file_upload %}
-                            <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" >
-                                Download:
+    <div id="post-area">
+            <!--title-->
+            <h1 class="mt-4">{{ post.title }}</h1>
+            <h5 class="text-muted">{{ post.hook_text }}</h5>
+            
+            <!--Author-->
+            <p class="lead">
+                by
+                <a href="#">작성자명 쓸 위치(개발예정)</a>
+            </p>
+            <hr>
 
-                                {% if post.get_file_ext == 'csv' %}
-                                    <i class="fas fa-file-csv"></i>
-                                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
-                                    <i class="fas fa-file-excel"></i>
-                                {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
-                                    <i class="fas fa-file-word"></i>
-                                {% else %}
-                                    <i class="far fa-file"></i>
-                                {% endif %}
-                
-                                {{ post.get_file_name }}
-                            
-                            
-                            </a>
-                            
-                        {% endif %}
-                        <hr>
-                    </article>
-                    <!-- Comments section-->
-                    <section class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
+            <!-- Date/Time -->
+            <p>Posted on {{ post.created_at }}</p>
+            
+            <hr>
+
+        </header>
+        <!-- Preview image figure-->
+        {% if post.head_image %}
+        <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="{{ post.title }} head_image" >
+        {% else %}
+            <img calss="img-fluid rounded" src="https://picsum.photos/seed/{{post.id}}/800/200" alt="random_image">
+        {% endif %}
+            
+            <hr>
+        <!-- Post content-->
+        <p>{{ post.content }}</p>
+        
+        {% if post.file_upload %}
+            <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" >
+                Download:
+
+                {% if post.get_file_ext == 'csv' %}
+                    <i class="fas fa-file-csv"></i>
+                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                    <i class="fas fa-file-excel"></i>
+                {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                    <i class="fas fa-file-word"></i>
+                {% else %}
+                    <i class="far fa-file"></i>
+                {% endif %}
+
+                {{ post.get_file_name }}
+            
+            
+            </a>
+            
+        {% endif %}
+        <hr>
+    </div>    
+    
+    <div id="comment-area">
+    <!-- Comments section-->
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Comment form-->
+                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                <!-- Comment with nested comments-->
+                <div class="d-flex mb-4">
+                    <!-- Parent comment-->
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">Commenter Name</div>
+                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                        <!-- Child comment 1-->
+                        <div class="d-flex mt-4">
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">Commenter Name</div>
+                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
                             </div>
                         </div>
-                    </section>
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        <!-- Child comment 2-->
+                        <div class="d-flex mt-4">
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">Commenter Name</div>
+                                When you put money directly to a problem, it makes a good headline.
                             </div>
                         </div>
                     </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                </div>
+                <!-- Single comment-->
+                <div class="d-flex">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">Commenter Name</div>
+                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    </section>
+    </div>
+    
+{% endblock %}
 
-
-</body>
-</html>
+                
+                
