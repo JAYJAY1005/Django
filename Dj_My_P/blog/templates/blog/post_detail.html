@@ -2,8 +2,8 @@
 {% block head_title %}
     {{ post.title }} - Blog
 {% endblock %}
-{% block main_area %}
 
+{% block main_area %}
     <div id="post-area">
         {% if post.category %}
             <span class="badge badge-secondary float-right">{{ post.category }}</span>
@@ -41,7 +41,7 @@
         {% if post.tags.exists %}
             <i class="fas fa-tags"></i>
             {% for tag in post.tags.all %}
-                <a href="{{ tag.get_absolute_url }}" class="badge badge-light">{{ tag }}</a>
+                <a href="{{ tag.get_absolute_url }}" class="badge bg-secondary">{{ tag }}</a>
             {% endfor %}
             <br/>
             <br/>
