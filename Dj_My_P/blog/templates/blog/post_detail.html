@@ -5,10 +5,11 @@
 
 {% block main_area %}
     <div id="post-area">
+        <!--태그 부분-->
         {% if post.category %}
-            <span class="badge badge-secondary float-right">{{ post.category }}</span>
+            <span class="badge bg-secondary">{{ post.category }}</span>
         {% else %}
-            <span class="badge badge-secondary float-right">미분류</span>
+            <span class="badge bg-secondary">미분류</span>
         {% endif %}    
             <!--title-->
             <h1 class="mt-4">{{ post.title }}</h1>
@@ -19,7 +20,12 @@
                 by
                 <a href="#">{{ post.author | upper }}</a>
             </p>
+            
             <hr>
+            <!-- 수정하기 버튼 추가 -->
+            {% if user.is_authenticated and user == post.author %}
+            <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{ post.pk }}/" role="button"><i class="fas fa-pen"></i>  Edit Post</a>
+            {% endif %}
 
             <!-- Date/Time -->
             <p>Posted on {{ post.created_at }}</p>
