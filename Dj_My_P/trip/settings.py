@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'markdownx',
+    # 로그인 기능 추가
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     'blog',
     'single_pages',
@@ -137,3 +143,18 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True # 회원 가입시 반드시 이메일 받기 기능 
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 그 이메일이 맞는기 검증하는 기능은 작동하지 않게함
+LOGIN_REDIRECT_URL = '/blog/'
