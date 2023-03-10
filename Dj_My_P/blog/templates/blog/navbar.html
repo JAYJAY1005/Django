@@ -25,9 +25,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% if user.socialaccount_set.all.first.get_avatar_url %}
-                                <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.first.get_avatar_url }}" alt="">
+                            <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.first.get_avatar_url }}" >
                             {% else %}
-                                <img class="rounded-circle" src="https://api.adorable.io/avatars/25/{{ user.username }}.png" alt="">
+                                <img class="rounded-circle" src="https://doitdjango.com/avatar/id/1466/593a8adef1f9f32c/svg/{{ user.username }}" >
                             {% endif %}
                             &nbsp;
                             {{ user.username }}
