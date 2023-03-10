@@ -102,26 +102,57 @@
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         {% if user.is_authenticated and comment.author == user %}
+                        <div class="float-right"></div>    
                             <a role="button"
                                class="btn btn-sm btn-info flaot-right"
                                id="comment-{{ comment.pk }}-update-btn"
                                href="/blog/update_comment/{{ comment.pk }}/">
                             Edit
                         </a>
+                        <a role="button"
+                        href="#"
+                        id="comment-{{ comment.pk }}-delete-modal-btn"
+                        class="btn btn-sm btn-danger"
+                        data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">
+                         delete
+                     </a>
+                 </div>                       
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Are You Sure?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <del>{{ comment | linebreaks }}</del>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <a role="button" class="btn btn-danger" href="/blog/delete_comment/{{ comment.pk }}/">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         {% endif %}
-                        <h5 class="mt-0">{{ comment.author.username }} &nbsp;nbsp;<small class="text-muted">{{ comment.created_at }}</small>
+                        <h5 class="mt-0">
+                            {{ comment.author.username }}
+                            &nbsp;&nbsp;<small class="text-muted">{{ comment.created_at }}</small>
                         </h5>
                         <p>{{ comment.content | linebreaks }}</p>
                         {% if comment.created_at != comment.modified_at %}
                             <p class="text-muted float-right"><small>Updated: {{ comment.modified_at }}</small></p>
-                        {% endif %}                        
+                        {% endif %}
                     </div>
                 </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <hr/>
-            {% endblock %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
 
                 
                 
