@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 {% block head_title %}
     {{ post.title }} - Blog
 {% endblock %}
@@ -77,19 +78,28 @@
     </div>    
     
     <div id="comment-area">
-    <!-- Comments section-->
-    <section class="mb-5">
-        <div class="card bg-light">
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-                <!-- Comment form-->
-                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-
-            
-        {% if post.comment_set.exists %}
-            {% for comment in post.comment_set.iterator %}
+                {% if user.is_authenticated %}
+                    <form id="comment-form" method="POST" action="{{ post.get_absolute_url }}new_comment/">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ comment_form | crispy }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                {% else %}
+                    <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="#" data-toggle="modal" data-target="#loginModal">Log in and leave a comment</a>
+                {% endif %}
+            </div>
+        </div>
+            {% if post.comment_set.exists %}
+                {% for comment in post.comment_set.iterator %}
                 <!-- Single comment-->
                 <div class="media mb-4" id="comment-{{ comment.pk }}">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="...">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         <h5 class="mt-0">{{ comment.author.username }} &nbsp;nbsp;<small class="text-muted">{{ comment.created_at }}</small>
                         </h5>
@@ -100,8 +110,7 @@
             {% endif %}
         </div>
         <hr/>
-            
-{% endblock %}
+            {% endblock %}
 
                 
                 
