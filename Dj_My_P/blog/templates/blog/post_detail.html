@@ -101,9 +101,20 @@
                 <div class="media mb-4" id="comment-{{ comment.pk }}">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
+                        {% if user.is_authenticated and comment.author == user %}
+                            <a role="button"
+                               class="btn btn-sm btn-info flaot-right"
+                               id="comment-{{ comment.pk }}-update-btn"
+                               href="/blog/update_comment/{{ comment.pk }}/">
+                            Edit
+                        </a>
+                        {% endif %}
                         <h5 class="mt-0">{{ comment.author.username }} &nbsp;nbsp;<small class="text-muted">{{ comment.created_at }}</small>
                         </h5>
                         <p>{{ comment.content | linebreaks }}</p>
+                        {% if comment.created_at != comment.modified_at %}
+                            <p class="text-muted float-right"><small>Updated: {{ comment.modified_at }}</small></p>
+                        {% endif %}                        
                     </div>
                 </div>
                 {% endfor %}
